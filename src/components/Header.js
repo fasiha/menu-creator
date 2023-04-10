@@ -1,21 +1,38 @@
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
+import React, { useState } from 'react';
+import './Header.css'
+import Popup from './Popup'
 
 function Header(props) {
+    const [show, setShow] = useState(false);
+    const [text, setText] = useState('');
+    const handleShow = () => setShow(true);
+
+    function fileUpload(e){
+        setText(e.target.innerText)
+        handleShow()
+    }
+    function fileDownload(e){
+        setText(e.target.innerText)
+        handleShow()
+    
+    }
    return (
     <>
       <Navbar bg="dark" variant="dark" expand='lg'>
         <Container>
           <Navbar.Brand href="#home">{props.restaurant}</Navbar.Brand>
           <div>
-          <Button variant="outline-primary">Upload</Button>{' '}
-          <Button variant="outline-success">Download</Button>{' '}
+          <Button variant="outline-primary" onClick={fileUpload}>Upload</Button>{' '}
+          <Button variant="outline-success" onClick={fileDownload}>Download</Button>{' '}
           </div>
         </Container>
+        
       </Navbar>
       <br />
-      
+      <Popup text={text} show={show} setShow = {setShow} />
     </>
   );
 }
