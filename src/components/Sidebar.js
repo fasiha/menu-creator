@@ -8,7 +8,7 @@ const Sidebar = props => {
     return (
         <>
             
-            <Nav className="col-md-3 d-none d-md-block bg-light sidebar">
+            <Nav className="col-md-3 d-block bg-light sidebar">
             {categories.map((category,index)=>(
                 <Nav.Item key={index}>
                 <Nav.Link href={'#'+category}>{category}</Nav.Link>

@@ -6,4 +6,8 @@
     position:fixed;
 }
 
+.nav-item{
+    max-height:30px;
+}
+
 
