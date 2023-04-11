@@ -17,7 +17,7 @@ const Main = props => {
     const [categories,setCategories] = useState(info['menu']['Categories'])  
     return (
         <div className='main'>
-            <Sidebar categories={categories}/>
+            <Sidebar setCategories = {setCategories} categories={categories}/>
             <Menu categories={categories}/>
         </div>
         );

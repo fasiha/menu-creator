@@ -4,7 +4,6 @@ import Category from "./Category.js"
  
 const Menu = props => {
     const {categories} = props
-    console.log(categories)
     return (
         <div className='menu'>
             <h1>Menu</h1>
