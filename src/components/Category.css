@@ -1,4 +1,14 @@
 .category {
+    font-family:Georgia, 'Times New Roman', Times, serif;
     font-size:35px;
-    height:500px;
+    margin:20px;
+}
+
+.cat {
+    font-weight:450;
+}
+
+.cat-desc{
+    font-size:22px;
+    font-weight:300;
 }

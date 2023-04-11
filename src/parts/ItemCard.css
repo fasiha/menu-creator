@@ -1,0 +1,12 @@
+.card-text {
+    font-size:20px;
+}
+.card-body{
+    text-align:left;
+}
+.card-title{
+    font-weight:550;
+}
+.price {
+    font-weight:500;
+}
