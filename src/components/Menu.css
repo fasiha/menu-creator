@@ -1,0 +1,5 @@
+.menu {
+    width:calc( 100% - 200 px);
+    margin-left:200px;
+    padding:20px;
+}

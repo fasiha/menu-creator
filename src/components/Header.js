@@ -21,7 +21,7 @@ function Header(props) {
     }
    return (
     <>
-      <Navbar bg="dark" variant="dark" expand='lg'>
+      <Navbar sticky='top' bg="dark" variant="dark" expand='lg'>
         <Container>
           <Navbar.Brand href="#home">{props.restaurant}</Navbar.Brand>
           <div>
@@ -31,7 +31,6 @@ function Header(props) {
         </Container>
         
       </Navbar>
-      <br />
       <Popup text={text} show={show} setShow = {setShow} />
     </>
   );

@@ -1,4 +1,13 @@
 
 body {
   text-align:center;
+  margin:0px;
 }
+/* to offset the header height */
+:target:before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: -50px 0 0;
+}
+
