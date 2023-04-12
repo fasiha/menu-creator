@@ -3,13 +3,21 @@ import React,{useRef,useState} from "react";
 import {Nav} from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import produce from "immer";
 
 
 const Sidebar = props => {
     const dragItem = useRef();
     const dragOverItem = useRef();
 
-    const {setCategories,categories} = props
+    const {setMenu,menu} = props
+    console.log(menu)
+    let categories = []
+    for (let i of menu){
+        categories.push(i.category)
+    }
+    console.log(categories)
+
     const [show,setShow] = useState(false)
     function handleClick(e){
         e.preventDefault()
@@ -18,10 +26,13 @@ const Sidebar = props => {
     function handleAdd(e){
         e.preventDefault()
         console.log(e.target.elements.category.value)
-        setCategories((pre)=>{
-            pre.push(e.target.elements.category.value)
-            return pre
-        })
+        setMenu(
+            produce((draft)=>{
+                draft.push({
+                    category: e.target.elements.category.value
+                })
+            })
+        )
         
         // close the form
         handleClick(e)
@@ -35,13 +46,13 @@ const Sidebar = props => {
       };
     
       const drop = (e) => {
-        const copyListItems = [...categories];
+         const copyListItems = [...menu];
         const dragItemContent = copyListItems[dragItem.current];
         copyListItems.splice(dragItem.current, 1);
         copyListItems.splice(dragOverItem.current, 0, dragItemContent);
         dragItem.current = null;
         dragOverItem.current = null;
-        setCategories(copyListItems);
+        setMenu(copyListItems);
       };
 
       function FormOrButton(){

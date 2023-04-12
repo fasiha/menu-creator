@@ -1,17 +1,18 @@
 import Card from 'react-bootstrap/Card';
 import './ItemCard.css'
 function ItemCard(props) {
-  const {item,itemsDesc,prices}=props 
+  const {item,menu,setMenu,index,index2}=props 
+  console.log(menu[index].items[index2])
   return (
-    <Card className='shadow-sm' style={{ width: 'calc( 75 vw -200 px)', margin:'20px'}}>
+    <Card className='shadow-sm card'>
       <Card.Body>
-        <Card.Title>{item}</Card.Title>
+        <Card.Title>{item.name}</Card.Title>
         <Card.Text className='text-muted p-2'>
-            {itemsDesc[item]}
+            {item.description}
         </Card.Text>
         <Card.Text className='p-2 price'>
-            $ {prices[item].toFixed(2)}
-        </Card.Text>
+            $ {item.price.toFixed(2)}
+        </Card.Text> 
       </Card.Body>
     </Card>
   );

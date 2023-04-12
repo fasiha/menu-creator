@@ -4,16 +4,16 @@ import Category from "./Category.js"
 import ItemCard from "../parts/ItemCard"
  
 const Menu = props => {
-    const {categories,descriptions,items,itemsDesc,prices} = props
+    const {menu, setMenu} = props
+    let categories = []
+    for (let i of menu){
+        categories.push(i)
+    }
     return (
         <div className='menu'>
             <h1 className='header'>Menu</h1>
-            {categories.map((category,index)=>(
-                <Category key={index} category={category}
-                description = {descriptions[category]}
-                items={items} 
-                itemsDesc={itemsDesc}
-                prices={prices}/>
+            {categories && categories.map((category,index)=>(
+                <Category key={index} category={category} index={index} menu={menu} setMenu={setMenu}/>
             ))}
         </div>
         );

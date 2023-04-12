@@ -4,65 +4,79 @@ import Sidebar from "./Sidebar.js"
 import Menu from "./Menu.js" 
 
 // sample menu 
-const info = {'restaurant':'Sushiya',
-'menu':{
-    'Categories': ['Sushi','Makimono','Hot Food','Drink'],
-    'descriptions': {
-    'Sushi': "Comes with two pieces of sushi",
-    'Makimono':"Comes with 6 pieces of maki.",
-    'Hot Food': "Various options from Japanese cookings.",
-    'Drink':''  
-    },
-    "items": {
-        'Sushi':['Tamago','Maguro','Salmon','Scallops'],
-        'Makimono':['California Roll','Tuna Roll','Cucumber Roll'],
-        'Hot Food':['Karaage','Takoyaki','Miso Soup'],
-        'Drink':['Coca Cola','Fanta Orange','Water']
-    },
-    "items-desc":{
-        'Tamago':'Sweeted egg omelette tied with dried seaweed. Comes with two pieces',
-        'Maguro':'Tuna. Comes with two pieces.',
-        'Salmon':'Fresh salmon. Comes with two pieces',
-        'Scallops':'Scallops imported from Peru. Comes with two pieces.',
-        'California Roll':'Rolled with avocado and crab meats. Comes with six pieces.',
-        'Tuna Roll': 'Rolled with fresh tuna. Comes with six pieces.',
-        'Cucumber Roll':'Rolled with cucumber. Comes with six pieces.',
-        'Karaage': 'Deep fried chicken, marinated with ginger and garlic soysauce. Comes with six pieces.',
-        'Takoyaki':'Ocotopus ball with Bull-Dog Sauce. Comes with six pieces.',
-        'Coca Cola':'',
-        'Fanta Orange':'',
-        'Water':''
-    },
-    "prices":{
-        'Tamago':3,
-        'Maguro':4,
-        'Salmon':4,
-        'Scallops':4.5,
-        'California Roll':6,
-        'Tuna Roll': 6,
-        'Cucumber Roll':5,
-        'Karaage': 8,
-        'Takoyaki':8,
-        'Miso Soup':3,
-        'Coca Cola':2,
-        'Fanta Orange':2,
-        'Water':2
+const info = 
+{'restaurant':'Sushiya',
+ 'menu':[
+        {'category':'Sushi',
+         'description':'Comes with two pieces of sushi',
+         'items':[
+            {'name':'Tamago',
+             'description':'Sweeted egg omelette tied with dried seaweed. Comes with two pieces',
+             'price': 3},
+             {'name':'Maguro',
+             'description':'Tune. Comes with two pieces',
+             'price': 4},
+             {'name':'Salmon',
+             'description':'Fresh salmon. Comes with two pieces',
+             'price': 4},
+             {'name':'Scallops',
+             'description':'Scallops imported from Peru. Comes with two pieces',
+             'price': 4.50} 
+            ]
+        },
+        {'category':'Makimono',
+         'description':'Comes with six pieces of maki',
+         'items':[
+            {'name':'California Roll',
+             'description':'Rolled with avocado and crab meats. Comes with six pieces',
+             'price': 6},
+             {'name':'Tuna Roll',
+             'description':'Rolled with fresh tuna. Comes with six pieces',
+             'price': 6}, 
+             {'name':'Cucumber Roll',
+             'description':'Rolled with cucumber. Comes with six pieces',
+             'price': 5},
+            ]
+        },
+        {'category':'Hot Food',
+         'description':'Various options from Japanese style cooking.',
+         'items':[
+            {'name':'Karaage',
+             'description':'Deep fried chicken, marinated with ginger and garlic soysauce. Comes with six pieces',
+             'price': 8},
+             {'name':'Takoyaki',
+             'description':'Octpus balls with Bull Dog Sauce. Comes with six pieces',
+             'price': 8}, 
+             {'name':'Miso Soup',
+             'description':'',
+             'price': 3},
+            ]
+        },
+        {'category':'Drink',
+         'description':'',
+         'items':[
+            {'name':'Coca Cola',
+             'description':'',
+             'price': 2},
+             {'name':'Fanta Orange',
+             'description':'',
+             'price': 2}, 
+             {'name':'Water',
+             'description':'',
+             'price': 2},
+            ]
+        },
+       ]
+       
     }
-}
-}
 
     
 const Main = props => {
-    const [categories,setCategories] = useState(info['menu']['Categories'])  
+    const [menu,setMenu] = useState(info['menu'])
     return (
         <div className='main'>
-            <Sidebar setCategories = {setCategories} categories={categories}/>
-            <Menu categories={categories}
-                  descriptions={info['menu']['descriptions']}
-                  items = {info['menu']['items']}
-                  itemsDesc= {info['menu']['items-desc']}
-                  prices = {info['menu']['prices']}
-                  />
+            <Sidebar setMenu = {setMenu} menu={menu}/>
+            <Menu setMenu = {setMenu} menu={menu}/> 
         </div>
         );
   };
