@@ -34,9 +34,11 @@ const Category = props => {
       };
     
 
-    const handleClick = (e) =>{
-        
-        setShow(true)
+    const addNewItem = () =>{
+        const newItem = {'name': "New Item",description:'New description...',price:0}
+        setMenu(produce((draft)=>{
+            draft[index].items.push(newItem)
+        }))
     }
 
     return (
@@ -54,7 +56,10 @@ const Category = props => {
                 </div>
             ))}   
             
-
+            <Button variant="outline-primary mt-3"
+            onClick={addNewItem}>
+            + New Item
+           </Button>
         </div>
         );
   };
