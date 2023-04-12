@@ -24,6 +24,10 @@ function PopupCat(props) {
     handleClose()
   }
 
+  const handleDelete =()=>{
+    console.log('delete')
+  }
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -61,7 +65,7 @@ function PopupCat(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="danger">
+        <Button variant="danger" onClick={handleDelete}>
                Delete the category
         </Button>
         </Modal.Footer>

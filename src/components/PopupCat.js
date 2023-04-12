@@ -11,6 +11,16 @@ function PopupCat(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleDelete = () => {
+    console.log('delete')
+    setMenu(
+      produce((draft)=>{
+        draft.splice(index,1)
+      })
+    )
+    handleClose()
+  }
+
   const handleSubmit =(e) =>{
     // update menu 
     setMenu(
@@ -61,7 +71,7 @@ function PopupCat(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="danger">
+        <Button variant="danger" onClick={handleDelete}>
                Delete the category
         </Button>
         </Modal.Footer>
