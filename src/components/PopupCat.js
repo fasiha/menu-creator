@@ -53,6 +53,7 @@ function PopupCat(props) {
                 name='category'
                 defaultValue={menu[index].category}
                 autoFocus
+                required
               />
             </Form.Group>
             <Form.Group

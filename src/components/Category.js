@@ -35,7 +35,7 @@ const Category = props => {
     
 
     const addNewItem = () =>{
-        const newItem = {'name': "New Item",description:'New description...',price:0}
+        const newItem = {'name': "New Item",description:'',price:0}
         setMenu(produce((draft)=>{
             draft[index].items.push(newItem)
         }))

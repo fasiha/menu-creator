@@ -63,7 +63,7 @@ function PopupItem(props) {
             >
               <Form.Label>Description</Form.Label>
               <Form.Control name='description' as="textarea" rows={4} defaultValue={menu[index].items[index2].description}
-              required/>
+              />
             </Form.Group>
             <Form.Group
               className="mb-3"
