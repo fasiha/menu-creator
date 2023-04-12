@@ -11,12 +11,10 @@ const Sidebar = props => {
     const dragOverItem = useRef();
 
     const {setMenu,menu} = props
-    console.log(menu)
     let categories = []
     for (let i of menu){
         categories.push(i.category)
     }
-    console.log(categories)
 
     const [show,setShow] = useState(false)
     function handleClick(e){
@@ -25,7 +23,7 @@ const Sidebar = props => {
     }
     function handleAdd(e){
         e.preventDefault()
-        console.log(e.target.elements.category.value)
+      
         setMenu(
             produce((draft)=>{
                 draft.push({

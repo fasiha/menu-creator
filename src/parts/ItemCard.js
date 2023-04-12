@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import './ItemCard.css'
 function ItemCard(props) {
   const {item,menu,setMenu,index,index2}=props 
-  console.log(menu[index].items[index2])
+  
   return (
     <Card className='shadow-sm card'>
       <Card.Body>
