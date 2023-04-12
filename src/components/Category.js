@@ -3,12 +3,14 @@ import React,{useState,useRef} from "react";
 import ItemCard from '../parts/ItemCard.js'
 import Button from 'react-bootstrap/Button'; 
 import produce from "immer"
+import PopupCat from './PopupCat'
 
 const Category = props => {
     const {category,setMenu,menu,index} = props
-    const [isEdit,setIsEdit] = useState(false)
+    const [show, setShow] = useState(false);
     const dragItem = useRef();
     const dragOverItem = useRef();
+    console.log(menu[index])
     
     const dragStart = (e, position) => {
         dragItem.current = position;
@@ -33,22 +35,20 @@ const Category = props => {
     
 
     const handleClick = (e) =>{
-        setMenu(
-             produce((draft)=>{
-                 draft[index]['description'] = 'This is a test!!'
-             })
-        )
+        // setMenu(
+        //      produce((draft)=>{
+        //          draft[index]['description'] = `This is a test!! ${menu[index].category}`
+        //      })
+        //)
+        console.log('Hello')
+        setShow(true)
     }
-    const CategoryForm = ()=>{
 
-    }
     return (
         <div id={category} className='category'>
             <h1 className='cat'>{menu[index].category}</h1>
             <p className='cat-desc'>{menu[index].description && menu[index].description}</p>
-            <Button variant="info m-3" onClick={handleClick}>
-            Edit
-            </Button>
+            <PopupCat menu ={menu} setMenu={setMenu} index={index} show={show} setShow={setShow} />
             {menu[index].items && menu[index].items.map((item,index2)=>(
                 <div key={index2}
                 onDragStart={(e) => dragStart(e, index2)}
@@ -58,6 +58,7 @@ const Category = props => {
                    <ItemCard item={item} index={index} index2={index2} menu ={menu} setMenu={setMenu} />
                 </div>
             ))}   
+            
 
         </div>
         );
