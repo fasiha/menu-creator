@@ -1,7 +1,11 @@
 import Card from 'react-bootstrap/Card';
 import './ItemCard.css'
+import PopupItem from '../components/PopupItem'
+import React,{useState} from 'react'
+
 function ItemCard(props) {
   const {item,menu,setMenu,index,index2}=props 
+  const [show,setShow] = useState(false)
   
   return (
     <Card className='shadow-sm card'>
@@ -14,6 +18,9 @@ function ItemCard(props) {
             $ {item.price.toFixed(2)}
         </Card.Text> 
       </Card.Body>
+      <Card.Footer>
+      <PopupItem menu ={menu} item={item} setMenu={setMenu} index={index} index2={index2} show={show} setShow={setShow}/>
+      </Card.Footer>
     </Card>
   );
 }

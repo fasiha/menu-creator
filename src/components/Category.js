@@ -10,7 +10,7 @@ const Category = props => {
     const [show, setShow] = useState(false);
     const dragItem = useRef();
     const dragOverItem = useRef();
-    console.log(menu[index])
+   
     
     const dragStart = (e, position) => {
         dragItem.current = position;
@@ -35,12 +35,7 @@ const Category = props => {
     
 
     const handleClick = (e) =>{
-        // setMenu(
-        //      produce((draft)=>{
-        //          draft[index]['description'] = `This is a test!! ${menu[index].category}`
-        //      })
-        //)
-        console.log('Hello')
+        
         setShow(true)
     }
 
