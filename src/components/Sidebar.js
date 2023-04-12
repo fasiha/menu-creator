@@ -1,12 +1,32 @@
 import './Sidebar.css'
-import React,{useRef} from "react";
+import React,{useRef,useState} from "react";
 import {Nav} from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 
 const Sidebar = props => {
     const dragItem = useRef();
     const dragOverItem = useRef();
 
     const {setCategories,categories} = props
+    const [show,setShow] = useState(false)
+    function handleClick(e){
+        e.preventDefault()
+        setShow((prev)=>!prev)
+    }
+    function handleAdd(e){
+        e.preventDefault()
+        console.log(e.target.elements.category.value)
+        setCategories((pre)=>{
+            pre.push(e.target.elements.category.value)
+            return pre
+        })
+        
+        // close the form
+        handleClick(e)
+    }
+
     const dragStart = (e, position) => {
         dragItem.current = position;
       };
@@ -23,7 +43,30 @@ const Sidebar = props => {
         dragOverItem.current = null;
         setCategories(copyListItems);
       };
-    
+
+      function FormOrButton(){
+        if (show){
+            return <Form className='mt-5' onSubmit={handleAdd}>
+        <Form.Group className="mb-3" controlId="newCategory">
+        <Form.Control type="text" name='category' placeholder="New category" 
+        />
+        <Form.Text className="text-muted">
+        </Form.Text>
+      </Form.Group>
+      <Button variant="primary mt-3" type="submit">
+        Add
+        </Button>
+        <Button variant="danger m-3"
+        onClick ={handleClick}>
+        Cancel
+        </Button>
+      </Form>
+        }
+        return <Button variant="info mt-5"
+            onClick={handleClick}>+</Button>
+      }
+      
+
     return (
         <>
             
@@ -37,11 +80,15 @@ const Sidebar = props => {
                 >{category}</Nav.Link>
                 </Nav.Item>
 
-            ))}
+            ))
+            
+            }
             
             
+            <FormOrButton />
+
             </Nav>
-          
+            
         </>
         );
   };

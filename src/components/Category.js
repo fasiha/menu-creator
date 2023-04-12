@@ -1,5 +1,5 @@
 import './Category.css'
-import React from "react";
+import React,{useState} from "react";
 import ItemCard from '../parts/ItemCard.js'
  
 const Category = props => {
@@ -9,8 +9,11 @@ const Category = props => {
             <h1 className='cat'>{category}</h1>
             <p className='cat-desc'>{description && description}</p>
             {items[category].map((item,index)=>(
-                <ItemCard key={index} item={item} itemsDesc={itemsDesc} prices={prices}/>
+                <div key={index} draggable>
+                <ItemCard item={item} itemsDesc={itemsDesc} prices={prices}/>
+                </div>
             ))}
+
         </div>
         );
   };
