@@ -13,12 +13,12 @@ function App() {
   const [menu,setMenu] = useState(json['menu'])
   return (
     <>
-    <Header restaurant= {json['restaurant']} menu={menu} />
-    <div className='main'>
+    <Header />
+    {/* <div className='main'>
         
         <Sidebar setMenu = {setMenu} menu={menu}/>
         <Menu setMenu = {setMenu} menu={menu}/> 
-    </div>
+    </div> */}
     </>
     );
 }

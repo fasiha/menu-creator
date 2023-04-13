@@ -4,10 +4,18 @@ import Navbar from 'react-bootstrap/Navbar';
 import React, { useState } from 'react';
 import './Header.css'
 import Popup from './Popup'
+import Sidebar from './Sidebar.js'
+import Menu from './Menu.js'
+
+import sushiya from '../menus/sushiya.json'
+
+// sample menu 
+const loadedData = JSON.stringify(sushiya)
+const json = JSON.parse(loadedData)
+
 
 function Header(props) {
-
-    const {restaurant,menu} = props
+    const [menu,setMenu] = useState(json['menu'])
     const [show, setShow] = useState(false);
     const [text, setText] = useState('');
     const handleShow = () => setShow(true);
@@ -25,7 +33,7 @@ function Header(props) {
     <>
       <Navbar sticky='top' bg="dark" variant="dark" expand='lg'>
         <Container>
-          <Navbar.Brand href="#home">{restaurant}</Navbar.Brand>
+          <Navbar.Brand href="#home">{json.restaurant}</Navbar.Brand>
           <div>
           <Button variant="outline-primary" onClick={fileUpload}>Upload</Button>{' '}
           <Button variant="outline-success" onClick={fileDownload}>Download</Button>{' '}
@@ -33,7 +41,12 @@ function Header(props) {
         </Container>
         
       </Navbar>
-      <Popup menu={menu} restaurant={restaurant} text={text} show={show} setShow = {setShow} />
+      <Popup menu={menu} setMenu={setMenu} restaurant={json.restaurant} text={text} show={show} setShow = {setShow} />
+      <div className='main'>
+        
+        <Sidebar setMenu = {setMenu} menu={menu}/>
+        <Menu setMenu = {setMenu} menu={menu}/> 
+    </div>
     </>
   );
 }

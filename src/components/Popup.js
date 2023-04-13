@@ -1,9 +1,12 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './Popup.css'
+import Form from 'react-bootstrap/Form';
+import React,{useState} from 'react'
 
 
-// export file from https://theroadtoenterprise.com/blog/how-to-download-csv-and-json-files-in-react
+// export file 
+// from https://theroadtoenterprise.com/blog/how-to-download-csv-and-json-files-in-react
 const downloadFile = ({ data, fileName, fileType },restaurant) => {
   // Create a blob with the data we want to download as a file
   const blob = new Blob([data], { type: fileType })
@@ -21,6 +24,7 @@ const downloadFile = ({ data, fileName, fileType },restaurant) => {
   a.remove()
 }
 
+
 const exportToJson = (e,data,restaurant) => {
   e.preventDefault()
   let whole = {restaurant}
@@ -35,7 +39,8 @@ const exportToJson = (e,data,restaurant) => {
 
 
 function Popup(props) {
-  const {text,show,setShow,menu,restaurant} = props
+  const {text,show,setShow,menu,setMenu,restaurant} = props
+  const [selectedFile, setSelectedFile] = useState(null);
   const handleClose = () => setShow(false);
   let message = ''
   if (text==='Upload'){
@@ -46,15 +51,41 @@ function Popup(props) {
   }
   const duSection = () =>{
     if (text=='Upload'){
-      return (<></>)
+      return (
+      <div className='file-form'>
+      <Form onSubmit={readFile}>
+      <Form.Group controlId="formFile" className="mb-3">
+        <Form.Control name='path' type="file" accept='.json'
+        onChange={(e) => setSelectedFile(e.target.files[0])}
+        />
+      </Form.Group>
+      <Button className='m-3' variant="info" type='submit'>
+            Write
+      </Button>
+      </Form>
+      </div>
+      )
     }
     return (
+      <div className='file-form'>
       <Button className='m-5' variant="info" onClick={(e)=>exportToJson(e,menu,restaurant)}>
             Download
-          </Button>
-
+      </Button>
+      </div>
     )
   }
+
+  const readFile = (e)=>{
+    e.preventDefault()
+    let fileReader =new FileReader()
+    fileReader.readAsText(selectedFile,"UTF-8")
+    fileReader.onload = e => {
+    const content = e.target.result;
+    setMenu(JSON.parse(content)['menu']);
+    handleClose()
+  }
+}
+
   
   return (
     <>
@@ -80,5 +111,6 @@ function Popup(props) {
     </>
   );
 }
+
 
 export default Popup;
