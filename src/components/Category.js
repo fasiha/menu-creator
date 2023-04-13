@@ -56,7 +56,7 @@ const Category = props => {
                 </div>
             ))}   
             
-            <Button variant="outline-primary mt-3"
+            <Button variant="outline-primary"
             onClick={addNewItem}>
             + New Item
            </Button>

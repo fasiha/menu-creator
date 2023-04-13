@@ -12,6 +12,7 @@ const Sidebar = props => {
 
     const {setMenu,menu} = props
     let categories = []
+    
     for (let i of menu){
         categories.push(i.category)
     }
@@ -27,7 +28,7 @@ const Sidebar = props => {
         setMenu(
             produce((draft)=>{
                 draft.push({
-                    category: e.target.elements.category.value
+                    category: e.target.elements.category.value,description:'', items:[]
                 })
             })
         )

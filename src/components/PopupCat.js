@@ -36,9 +36,11 @@ function PopupCat(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <div>
+      <Button variant="primary" onClick={handleShow} className='editcat'>
         Edit
       </Button>
+      </div>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
