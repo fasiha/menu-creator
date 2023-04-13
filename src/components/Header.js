@@ -6,6 +6,8 @@ import './Header.css'
 import Popup from './Popup'
 
 function Header(props) {
+
+    const {restaurant,menu} = props
     const [show, setShow] = useState(false);
     const [text, setText] = useState('');
     const handleShow = () => setShow(true);
@@ -23,7 +25,7 @@ function Header(props) {
     <>
       <Navbar sticky='top' bg="dark" variant="dark" expand='lg'>
         <Container>
-          <Navbar.Brand href="#home">{props.restaurant}</Navbar.Brand>
+          <Navbar.Brand href="#home">{restaurant}</Navbar.Brand>
           <div>
           <Button variant="outline-primary" onClick={fileUpload}>Upload</Button>{' '}
           <Button variant="outline-success" onClick={fileDownload}>Download</Button>{' '}
@@ -31,7 +33,7 @@ function Header(props) {
         </Container>
         
       </Navbar>
-      <Popup text={text} show={show} setShow = {setShow} />
+      <Popup menu={menu} restaurant={restaurant} text={text} show={show} setShow = {setShow} />
     </>
   );
 }

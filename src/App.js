@@ -5,7 +5,7 @@ import Main from './components/Main.js'
 function App() {
   return (
     <div className="App">
-      <Header restaurant='Sushiya' />
+      {/* <Header restaurant='Sushiya' /> */}
       <Main />
     </div>
   );

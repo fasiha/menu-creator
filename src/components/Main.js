@@ -3,6 +3,7 @@ import React,{useState} from "react";
 import Sidebar from "./Sidebar.js"
 import Menu from "./Menu.js" 
 import sushiya from '../menus/sushiya.json'
+import Header from './Header.js'
 
 
 // sample menu 
@@ -80,10 +81,14 @@ const Main = props => {
     // const [menu,setMenu] = useState(info['menu'])
     const [menu,setMenu] = useState(json['menu'])
     return (
+        <>
+        <Header restaurant= {json['restaurant']} menu={menu} />
         <div className='main'>
+            
             <Sidebar setMenu = {setMenu} menu={menu}/>
             <Menu setMenu = {setMenu} menu={menu}/> 
         </div>
+        </>
         );
   };
 export default Main
