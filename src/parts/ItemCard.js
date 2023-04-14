@@ -3,11 +3,18 @@ import './ItemCard.css'
 import PopupItem from '../components/PopupItem'
 import React,{useState} from 'react'
 import PopupOption from '../components/PopupOption'
+import Button from 'react-bootstrap/Button'
+import produce from "immer"
 
 function ItemCard(props) {
   const {item,menu,setMenu,index,index2}=props 
   const [show,setShow] = useState(false)
-  
+  const handleAdd = ()=>{
+    const newGroup = {"required":true,"name":"New Group","options":[{"name":"New Option","price":0}]}
+    setMenu(produce((draft)=>{
+    draft[index].items[index2].groups.push(newGroup)
+  }))
+  }  
   
   return (
     <Card className='shadow-sm card'>
@@ -19,8 +26,10 @@ function ItemCard(props) {
         <Card.Text className='p-2 price'>
             $ {item.price.toFixed(2)}
         </Card.Text> 
-
-        <div>{item.groups && item.groups.map((group,i)=>
+        <Card.Text>
+          Option Groups <Button variant='outline-info' onClick={handleAdd}>+ Add</Button>
+        </Card.Text>
+        <div className='option-groups'>{item.groups && item.groups.map((group,i)=>
           <div key={i}><PopupOption menu={menu} setMenu={setMenu} index={index} index2={index2} index3= {i} group={group}/></div>)}</div>
       </Card.Body>
       <Card.Footer>
