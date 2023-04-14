@@ -12,7 +12,13 @@ function ItemCard(props) {
   const handleAdd = ()=>{
     const newGroup = {"required":true,"name":"New Group","options":[{"name":"New Option","price":0}]}
     setMenu(produce((draft)=>{
-    draft[index].items[index2].groups.push(newGroup)
+    let item_ = draft[index].items[index2] 
+    if ('groups' in item_){
+    item_.groups.push(newGroup)
+    }
+    else {
+      item_['groups'] = [newGroup]
+    }
   }))
   }  
   
