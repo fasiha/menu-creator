@@ -21,7 +21,7 @@ function ItemCard(props) {
         </Card.Text> 
 
         <div>{item.groups && item.groups.map((group,i)=>
-          <div key={i}><PopupOption index3= {i} group={group}/></div>)}</div>
+          <div key={i}><PopupOption menu={menu} setMenu={setMenu} index={index} index2={index2} index3= {i} group={group}/></div>)}</div>
       </Card.Body>
       <Card.Footer>
       <PopupItem menu ={menu} item={item} setMenu={setMenu} index={index} index2={index2} show={show} setShow={setShow}/>

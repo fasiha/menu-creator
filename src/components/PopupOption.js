@@ -10,8 +10,8 @@ import './Popup.css'
 
 
 
-function PopupItem(props) {
-  const {index,index2,menu,setMenu,group} = props 
+function PopupOption(props) {
+  const {index,index2,index3,menu,setMenu,group} = props 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -20,7 +20,7 @@ function PopupItem(props) {
   const handleDelete = () => {
     setMenu(
       produce((draft)=>{
-        draft[index].items.splice(index2,1)
+        draft[index].items[index2].groups.splice(index3,1)
       })
     )
     handleClose()
@@ -74,7 +74,7 @@ function PopupItem(props) {
           <Modal.Title>Edit {group.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit}>
+          <Form className='option-form' onSubmit={handleSubmit}>
           <Form.Label>Option Group Name</Form.Label>
               <Form.Control
                 type="text"
@@ -92,7 +92,7 @@ function PopupItem(props) {
         </Modal.Body>
         <Modal.Footer>
         <Button variant="danger" onClick={handleDelete}>
-               Delete the Item
+               Delete the Option Group
         </Button>
         </Modal.Footer>
       </Modal>
@@ -100,4 +100,4 @@ function PopupItem(props) {
   );
 }
 
-export default PopupItem
+export default PopupOption
