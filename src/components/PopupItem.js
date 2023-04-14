@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import produce from "immer"
-import InputGroup from 'react-bootstrap/InputGroup';
+
+
 
 function PopupItem(props) {
   const {index,index2,menu,setMenu} = props 
@@ -72,6 +73,7 @@ function PopupItem(props) {
               <Form.Label>Price $</Form.Label>
               <Form.Control type='number' step='0.1' name='price' defaultValue={menu[index].items[index2].price}
               required/>
+              
             </Form.Group>
             <Button className='m-1' variant="secondary" onClick={handleClose}>
             Close
