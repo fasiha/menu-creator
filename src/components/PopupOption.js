@@ -10,12 +10,21 @@ import './Popup.css'
 
 
 
+
 function PopupOption(props) {
   const {index,index2,index3,menu,setMenu,group} = props 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleAdd = ()=>{
+    let newOption = {name:'New Option', price:0}
+    setMenu(
+        produce((draft)=>{
+    draft[index].items[index2].groups[index3].options.push(newOption)
+    })
+    )}
 
   const handleDelete = () => {
     setMenu(
@@ -85,6 +94,9 @@ function PopupOption(props) {
               />
           <Form.Label>Type</Form.Label>
           <SelectOption />
+          <Form.Label>
+          Options <Button variant='outline-info' onClick={handleAdd}>+ Add</Button>
+        </Form.Label>
           {group.options.map((option,i)=>
             <OptionSection key={i} name={option.name} price={option.price} />
           )}
