@@ -52,9 +52,16 @@ function PopupOption(props) {
       </InputGroup>
       )
   }
+  const deleteOption = (index4)=>{
+    setMenu(
+        produce((draft)=>{
+          draft[index].items[index2].groups[index3].options.splice(index4,1)
+        })
+      )
+  }
 
   const OptionSection = (props) =>{
-    const {name,price} = props
+    const {name,price,index4} = props
     return (
     <div className='option-section'>
       <Form.Label>Option Name</Form.Label>
@@ -69,9 +76,13 @@ function PopupOption(props) {
               <Form.Control type='number' step='0.1' name='price' 
               defaultValue={price}
               required/>
+      <Button variant="outline-danger mt-3" onClick={(e,index4)=>deleteOption(index4)}>
+               Delete
+        </Button>
       </div>) 
   }
 
+  
   return (
     <>
       <Button variant="outline-secondary" className='mt-3' onClick={handleShow}>
@@ -98,7 +109,7 @@ function PopupOption(props) {
           Options <Button variant='outline-info' onClick={handleAdd}>+ Add</Button>
         </Form.Label>
           {group.options.map((option,i)=>
-            <OptionSection key={i} name={option.name} price={option.price} />
+            <OptionSection key={i} index4={i} name={option.name} price={option.price} />
           )}
           </Form>
         </Modal.Body>
