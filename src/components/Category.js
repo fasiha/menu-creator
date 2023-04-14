@@ -5,8 +5,9 @@ import Button from 'react-bootstrap/Button';
 import produce from "immer"
 import PopupCat from './PopupCat'
 
+
 const Category = props => {
-    const {category,setMenu,menu,index} = props
+    const {category,setMenu,menu,index,image} = props
     const [show, setShow] = useState(false);
     const dragItem = useRef();
     const dragOverItem = useRef();
@@ -43,6 +44,7 @@ const Category = props => {
 
     return (
         <div id={category} className='category'>
+          
             <h1 className='cat'>{menu[index].category}</h1>
             <p className='cat-desc'>{menu[index].description && menu[index].description}</p>
             <PopupCat menu ={menu} setMenu={setMenu} index={index} show={show} setShow={setShow} />

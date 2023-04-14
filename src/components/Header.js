@@ -45,7 +45,7 @@ function Header(props) {
       <div className='main'>
         
         <Sidebar setMenu = {setMenu} menu={menu}/>
-        <Menu setMenu = {setMenu} menu={menu}/> 
+        <Menu setMenu = {setMenu} image={json['image']} menu={menu}/> 
     </div>
     </>
   );
