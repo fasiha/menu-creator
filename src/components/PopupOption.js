@@ -36,26 +36,44 @@ function PopupOption(props) {
   }
 
   const handleSubmit =(e) =>{
-
     e.preventDefault()
-    handleClose()
+    let data = e.target.elements
+    const name = data.name.value
+    const type = data.group.value==1? true:false;
+    const optionLen = menu[index].items[index2].groups[index3].options.length
+    let options = []
+    for(var i=0;i<optionLen;i++)
+		{
+        let option = {name:data[`optionName${i}`].value,price:data[`optionPrice${i}`].value}
+        options.push(option)
+	}
+    let newData = {name,type,options}
+    setMenu(
+         produce((draft)=>{
+           draft[index].items[index2].groups[index3] = newData 
+         })
+      )
+
+    
   }
+
 
   const SelectOption = ()=>{
     let number = group.required? "1":"2"
     return (
     <InputGroup className="mb-3" >
-          <Form.Select defaultValue={number} aria-label="Default select example">
+          <Form.Select defaultValue={number} name='group' aria-label="Default select example">
       <option value="1">Required</option>
       <option value="2">Optional</option>)
     </Form.Select>
       </InputGroup>
       )
   }
-  const deleteOption = (index4)=>{
+  const deleteOption = (e)=>{
+    console.log(e.target.id)
     setMenu(
         produce((draft)=>{
-          draft[index].items[index2].groups[index3].options.splice(index4,1)
+          draft[index].items[index2].groups[index3].options.splice(parseInt(e.target.id),1)
         })
       )
   }
@@ -66,17 +84,17 @@ function PopupOption(props) {
     <div className='option-section'>
       <Form.Label>Option Name</Form.Label>
               <Form.Control type="text"
-                name='option-name'
+                name={`optionName${index4}`}
                 required
                 className='mb-4'
                 defaultValue={name}
                 ></Form.Control>
 
       <Form.Label>Price $</Form.Label>
-              <Form.Control type='number' step='0.1' name='price' 
+              <Form.Control type='number' step='0.1' name={`optionPrice${index4}`}
               defaultValue={price}
               required/>
-      <Button variant="outline-danger mt-3" onClick={(e,index4)=>deleteOption(index4)}>
+      <Button variant="outline-danger mt-3" id={index4} onClick={deleteOption}>
                Delete
         </Button>
       </div>) 
@@ -111,8 +129,13 @@ function PopupOption(props) {
           {group.options.map((option,i)=>
             <OptionSection key={i} index4={i} name={option.name} price={option.price} />
           )}
+          <Button variant="outline-info" className='m-3' type='submit'>
+               Save Changes
+          </Button>
           </Form>
+
         </Modal.Body>
+
         <Modal.Footer>
         <Button variant="danger" onClick={handleDelete}>
                Delete the Option Group
