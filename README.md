@@ -11,4 +11,4 @@ The application is under progress.
 ## Developing Note
 https://mastodon.xyz/@sato1108ss/110177725642854961
 ## Credit 
-favicon : "https://www.flaticon.com/free-icons/food"
+Favicon : "https://www.flaticon.com/free-icons/food"
