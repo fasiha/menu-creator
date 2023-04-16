@@ -35,6 +35,24 @@ function PopupOption(props) {
     handleClose()
   }
 
+  const saveProcess = (e) => {
+    let n = e.target.name.replace(/[0-9]/g,'')
+    const i = parseInt(e.target.name.replace(/[^0-9]/g, ''));
+    if (n=="optionName"){
+    setMenu(
+      produce((draft)=>{
+      draft[index].items[index2].groups[index3].options[i]['name']= e.target.value
+      }))
+  } else {
+    setMenu(
+      produce((draft)=>{
+      draft[index].items[index2].groups[index3].options[i]['price']= e.target.value
+      }))
+      
+  }
+  }
+  
+
   const handleSubmit =(e) =>{
     e.preventDefault()
     let data = e.target.elements
@@ -53,7 +71,7 @@ function PopupOption(props) {
            draft[index].items[index2].groups[index3] = newData 
          })
       )
-
+      handleClose()
     
   }
 
@@ -70,7 +88,6 @@ function PopupOption(props) {
       )
   }
   const deleteOption = (e)=>{
-    console.log(e.target.id)
     setMenu(
         produce((draft)=>{
           draft[index].items[index2].groups[index3].options.splice(parseInt(e.target.id),1)
@@ -88,11 +105,13 @@ function PopupOption(props) {
                 required
                 className='mb-4'
                 defaultValue={name}
+                onBlur = {saveProcess}
                 ></Form.Control>
 
       <Form.Label>Price $</Form.Label>
               <Form.Control type='number' step='0.1' name={`optionPrice${index4}`}
               defaultValue={price}
+              onBlur={saveProcess}
               required/>
       <Button variant="outline-danger mt-3" id={index4} onClick={deleteOption}>
                Delete
