@@ -7,11 +7,10 @@ import PopupCat from './PopupCat'
 
 
 const Category = props => {
-    const {category,setMenu,menu,index,image} = props
+    const {setMenu,menu,index,image} = props
     const [show, setShow] = useState(false);
     const dragItem = useRef();
     const dragOverItem = useRef();
-   
     
     const dragStart = (e, position) => {
         dragItem.current = position;
@@ -43,7 +42,7 @@ const Category = props => {
     }
 
     return (
-        <div id={category} className='category'>
+        <div id={menu[index].category} className='category'>
           
             <h1 className='cat'>{menu[index].category}</h1>
             <p className='cat-desc'>{menu[index].description && menu[index].description}</p>

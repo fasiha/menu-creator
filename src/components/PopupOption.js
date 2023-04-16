@@ -77,7 +77,7 @@ function PopupOption(props) {
 
 
   const SelectOption = ()=>{
-    let number = group.required? "1":"2"
+    let number = group.type? "1":"2"
     return (
     <InputGroup className="mb-3" >
           <Form.Select defaultValue={number} name='group' aria-label="Default select example">
