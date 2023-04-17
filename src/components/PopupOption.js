@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -14,9 +14,30 @@ import './Popup.css'
 function PopupOption(props) {
   const {index,index2,index3,menu,setMenu,group} = props 
   const [show, setShow] = useState(false);
+  const dragItem = useRef()
+  const dragOverItem = useRef()
+  
+  const dragStart = (e, position) => {
+    dragItem.current = position;
+  };
+
+
+  const dragEnter = (e,position) => {
+    dragOverItem.current= position;
+  }
+
+  const drop = (e)=>{
+    setMenu(produce((draft)=>{
+      draft[index].items[index2].groups[index3].name='Test'
+    })
+    )
+  }
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
 
   const handleAdd = ()=>{
     let newOption = {name:'New Option', price:0}
@@ -76,8 +97,10 @@ function PopupOption(props) {
   }
 
 
-  const SelectOption = ()=>{
-    let number = group.type? "1":"2"
+  const SelectOption = (props)=>{
+    const {group} = props
+    let number = group.required? "1":"2"
+
     return (
     <InputGroup className="mb-3" >
           <Form.Select defaultValue={number} name='group' aria-label="Default select example">
@@ -98,7 +121,12 @@ function PopupOption(props) {
   const OptionSection = (props) =>{
     const {name,price,index4} = props
     return (
-    <div className='option-section'>
+    <div className='option-section'
+    key= {index4}
+    onDragStart ={(e)=> dragStart(e,index4)}
+    onDragEnter = {(e)=> dragEnter(e,index4)}
+    onDragEnd = {drop}
+    draggable>
       <Form.Label>Option Name</Form.Label>
               <Form.Control type="text"
                 name={`optionName${index4}`}
@@ -141,7 +169,7 @@ function PopupOption(props) {
                 defaultValue={group.name}
               />
           <Form.Label>Type</Form.Label>
-          <SelectOption />
+          <SelectOption group={group}/>
           <Form.Label>
           Options <Button variant='outline-info' onClick={handleAdd}>+ Add</Button>
         </Form.Label>
