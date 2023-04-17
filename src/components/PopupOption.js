@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -16,7 +16,7 @@ function PopupOption(props) {
   const [show, setShow] = useState(false);
   const dragItem = useRef()
   const dragOverItem = useRef()
-  
+
   const dragStart = (e, position) => {
     dragItem.current = position;
   };
@@ -26,11 +26,14 @@ function PopupOption(props) {
     dragOverItem.current= position;
   }
 
-  const drop = (e)=>{
-    setMenu(produce((draft)=>{
-      draft[index].items[index2].groups[index3].name='Test'
-    })
-    )
+  const drop = ()=>{
+        setMenu(produce((draft)=>{
+             const dragItemContent = draft[index].items[index2].groups[index3].options.splice(dragItem.current,1)[0]
+             draft[index].items[index2].groups[index3].options.splice(dragOverItem.current,0,dragItemContent)
+             dragItem.current = null;
+             dragOverItem.current = null;
+             console.info(JSON.parse(JSON.stringify(draft[index].items[index2].groups[index3].options)))
+         }))
   }
 
 
@@ -78,7 +81,7 @@ function PopupOption(props) {
     e.preventDefault()
     let data = e.target.elements
     const name = data.name.value
-    const type = data.group.value==1? true:false;
+    const required = (data.group.value=='1'? true:false);
     const optionLen = menu[index].items[index2].groups[index3].options.length
     let options = []
     for(var i=0;i<optionLen;i++)
@@ -86,7 +89,7 @@ function PopupOption(props) {
         let option = {name:data[`optionName${i}`].value,price:data[`optionPrice${i}`].value}
         options.push(option)
 	}
-    let newData = {name,type,options}
+    let newData = {name,required,options}
     setMenu(
          produce((draft)=>{
            draft[index].items[index2].groups[index3] = newData 
