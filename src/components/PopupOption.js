@@ -15,33 +15,29 @@ function PopupOption(props) {
   const dragOverItem = useRef();
 
   const dragStart = (e, position) => {
+    e.stopPropagation();
     dragItem.current = position;
   };
 
   const dragEnter = (e, position) => {
+    e.stopPropagation();
     dragOverItem.current = position;
   };
 
-  const drop = () => {
+  const drop = (e) => {
+    e.stopPropagation();
     setMenu(
       produce((draft) => {
-        const dragItemContent = draft[index].items[index2].groups[
-          index3
-        ].options.splice(dragItem.current, 1)[0];
-        draft[index].items[index2].groups[index3].options.splice(
-          dragOverItem.current,
-          0,
-          dragItemContent
-        );
-        dragItem.current = null;
-        dragOverItem.current = null;
-        console.info(
-          JSON.parse(
-            JSON.stringify(draft[index].items[index2].groups[index3].options)
-          )
-        );
+        const arr = draft[index].items[index2].groups[index3].options;
+        const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
+        draft[index].items[index2].groups[index3].options[endIdx] =
+          arr[startIdx];
+        draft[index].items[index2].groups[index3].options[startIdx] =
+          arr[endIdx];
       })
     );
+    dragItem.current = null;
+    dragOverItem.current = null;
   };
 
   const handleClose = () => setShow(false);

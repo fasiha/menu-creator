@@ -12,6 +12,8 @@ const Category = (props) => {
   const dragOverItem = useRef();
 
   const dragStart = (e, position) => {
+    // Note: if PopupOptions.js' dragStart doesn't call `stopPropagation`, you will see this console.log!
+    console.log("***Category.js drag started***");
     dragItem.current = position;
   };
   const dragEnter = (e, position) => {
