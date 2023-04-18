@@ -30,10 +30,9 @@ function PopupOption(props) {
       produce((draft) => {
         const arr = draft[index].items[index2].groups[index3].options;
         const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
-        draft[index].items[index2].groups[index3].options[endIdx] =
-          arr[startIdx];
-        draft[index].items[index2].groups[index3].options[startIdx] =
-          arr[endIdx];
+        const [start, end] = [arr[startIdx], arr[endIdx]];
+        arr[endIdx] = start;
+        arr[startIdx] = end;
       })
     );
     dragItem.current = null;
