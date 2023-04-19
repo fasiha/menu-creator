@@ -7,6 +7,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import InputGroup from "react-bootstrap/InputGroup";
 import "./Popup.css";
+import { flushSync } from "react-dom";
 
 function PopupOption(props) {
   const { index, index2, index3, menu, setMenu, group } = props;
@@ -26,15 +27,40 @@ function PopupOption(props) {
 
   const drop = (e) => {
     e.stopPropagation();
-    setMenu(
-      produce((draft) => {
-        const arr = draft[index].items[index2].groups[index3].options;
-        const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
-        const [start, end] = [arr[startIdx], arr[endIdx]];
-        arr[endIdx] = start;
-        arr[startIdx] = end;
-      })
-    );
+    console.log("Dropped");
+
+    const FLUSHSYNC = true;
+
+    if (FLUSHSYNC) {
+      // see https://github.com/reactwg/react-18/discussions/21 especially "What if I don’t want to batch?"
+      // flushSync ensures that setMenu runs synchronously and doesn't batch
+      flushSync(() => {
+        setMenu(
+          produce((draft) => {
+            const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
+            console.log("in draft", startIdx, endIdx);
+            const arr = draft[index].items[index2].groups[index3].options;
+            const [start, end] = [arr[startIdx], arr[endIdx]];
+            arr[endIdx] = start;
+            arr[startIdx] = end;
+          })
+        );
+      });
+    } else {
+      // Read the refs BEFORE calling setMenu. Then setMenu can be batched.
+      const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
+      setMenu(
+        produce((draft) => {
+          console.log("in draft", startIdx, endIdx);
+          const arr = draft[index].items[index2].groups[index3].options;
+          const [start, end] = [arr[startIdx], arr[endIdx]];
+          arr[endIdx] = start;
+          arr[startIdx] = end;
+        })
+      );
+    }
+
+    console.log("NULLING REFS");
     dragItem.current = null;
     dragOverItem.current = null;
   };
