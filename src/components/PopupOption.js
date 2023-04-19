@@ -29,16 +29,19 @@ function PopupOption(props) {
     e.stopPropagation();
     console.log("Dropped");
 
-    const FLUSHSYNC = true;
+    // all three methods will work
+    let METHOD = "FLUSH_SYNC";
+    METHOD = "READ_BEFORE";
+    METHOD = "CLONE_DIRECT_SET";
 
-    if (FLUSHSYNC) {
+    if (METHOD === "FLUSH_SYNC") {
       // see https://github.com/reactwg/react-18/discussions/21 especially "What if I don’t want to batch?"
       // flushSync ensures that setMenu runs synchronously and doesn't batch
       flushSync(() => {
         setMenu(
           produce((draft) => {
             const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
-            console.log("in draft", startIdx, endIdx);
+            console.log("in draft (flush sync)", startIdx, endIdx);
             const arr = draft[index].items[index2].groups[index3].options;
             const [start, end] = [arr[startIdx], arr[endIdx]];
             arr[endIdx] = start;
@@ -46,18 +49,33 @@ function PopupOption(props) {
           })
         );
       });
-    } else {
+    } else if (METHOD === "READ_BEFORE") {
       // Read the refs BEFORE calling setMenu. Then setMenu can be batched.
       const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
       setMenu(
         produce((draft) => {
-          console.log("in draft", startIdx, endIdx);
+          console.log("in draft (read before)", startIdx, endIdx);
           const arr = draft[index].items[index2].groups[index3].options;
           const [start, end] = [arr[startIdx], arr[endIdx]];
           arr[endIdx] = start;
           arr[startIdx] = end;
         })
       );
+    } else {
+      // Don't use the function form of the setter. Deep-clone `menu` directly
+      // (via JSON.parse/JSON.stringify) and then give setMenu the mutated
+      // clone. This is the worst method: JSON.parse+JSON.stringify is going to
+      // be slow (though you can use lodash `cloneDeep`).
+      const [startIdx, endIdx] = [dragItem.current, dragOverItem.current];
+      console.log("in draft (deep clone+direct set)", startIdx, endIdx);
+
+      const clone = JSON.parse(JSON.stringify(menu)); // deep clone
+      console.log("MENU", menu, clone);
+      const arr = clone[index].items[index2].groups[index3].options;
+      const [start, end] = [arr[startIdx], arr[endIdx]];
+      arr[endIdx] = start;
+      arr[startIdx] = end;
+      setMenu(clone);
     }
 
     console.log("NULLING REFS");
